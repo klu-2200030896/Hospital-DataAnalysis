@@ -1,0 +1,49 @@
+erDiagram
+    Patients {
+        int patient_id PK
+        string name
+        string gender
+        date dob
+        string phone
+        string address
+    }
+
+    Doctors {
+        int doctor_id PK
+        string name
+        string specialization
+        float salary
+    }
+
+    Admissions {
+        int admission_id PK
+        int patient_id FK
+        string disease
+        date admission_date
+        date discharge_date
+        int days_in_hospital
+        string room_number
+    }
+
+    Appointments {
+        int appointment_id PK
+        int patient_id FK
+        int doctor_id FK
+        date appointment_date
+    }
+
+    Billing {
+        int bill_id PK
+        int patient_id FK
+        int doctor_id FK
+        float total_amount
+        float amount_paid
+        date billing_date
+    }
+
+    Patients ||--o{ Admissions : has
+    Patients ||--o{ Appointments : books
+    Patients ||--o{ Billing : billed
+
+    Doctors ||--o{ Appointments : consults
+    Doctors ||--o{ Billing : charges
